@@ -34,15 +34,26 @@ function encontrarID(e) { // Pasa el evento y busca el ID del tr más cercano
     let nombreGasto = valorGasto.previousElementSibling;
     valorGasto = valorGasto.innerHTML;
     nombreGasto = nombreGasto.innerHTML;
+    valorGasto = String(valorGasto).replace("$", "");
+    valorGasto = Number(valorGasto);
+    nombreGasto = String(nombreGasto);
     console.log(nombreGasto, valorGasto);
     return [ID, nombreGasto, valorGasto];
 }
 
 function borrarGasto(e) { // TODO: USAR encontrarID para borrar el array
-    let ID = encontrarID(e); 
-    let gasto = document.getElementById(ID);
-    console.log(gasto);
-    gasto.remove();
+    let ID = encontrarID(e)[0]; 
+    let nombreGasto = encontrarID(e)[1];
+    let valorGasto = encontrarID(e)[2];
+    let gastoTabla = document.getElementById(ID);
+
+    console.log("Array antes de quitar: " + gastos);
+
+    gastoTabla.remove();
+    indiceElemento = gastos.indexOf([nombreGasto, valorGasto]); // indexOf NO funciona con arrays 2d. Me quiero matar
+    gastos.splice(indiceElemento, indiceElemento);
+
+    console.log("Array después de quitar: " + gastos);
     // Borrar del array:
     
     contador--
